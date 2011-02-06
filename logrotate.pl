@@ -31,6 +31,11 @@
 #	[1] http://www.unix.com/man-page/FreeBSD/3/strftime/
 #	[2] http://search.cpan.org/~msergeant/Time-Piece/Piece.pm
 #
+# /unset plugins.var.perl.logrotate.server.#channel.timer
+# /unset plugins.var.perl.logrotate.server.#channel.format
+#	Remove a configuration. to make logrotate disable,
+#	you can remove either timer or format parameter.
+#
 
 use strict;
 use warnings;

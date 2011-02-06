@@ -12,7 +12,7 @@
 #	rotate weechatlogs for any buffer with DIFFERRNT
 #	configuration.
 #	Prior to the consideration of using logrotate.pl,
-#	check "WeeChat User’s Guid Section 4.7. Logger plugin"
+#	check "WeeChat User's Guid Section 4.7. Logger plugin"
 #	first. WeeChat provide us official logrotate manner.
 #
 # Usage

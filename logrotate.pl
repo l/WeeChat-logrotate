@@ -35,7 +35,7 @@
 use strict;
 use warnings;
 use Time::Piece;
-#use Data::Dumper;
+use Data::Dumper;
 use File::Basename;
 use File::Path;
 
@@ -64,11 +64,14 @@ sub option_get
 sub config
 {
 	my $conf = &option_get("plugins.var.perl.logrotate");
+	weechat::print("", Dumper $conf);
 	while (my ($key, $val) = each %{$conf}) {
+		next if ! defined $val->{format} || $val->{format} eq '';
+		next if ! defined $val->{timer} || $val->{timer} == 0;
 		$val->{hook} = weechat::hook_timer(1000 * $val->{timer}, $val->{timer}, 0, "my_signal_day_changed", $key);
 	}
 
-#	weechat::print("", Dumper $conf);
+	weechat::print("", Dumper $conf);
 	return $conf;
 }
 
@@ -78,9 +81,8 @@ sub config_cb
 	my $option = shift;
 	my $value = shift;
 	while (my ($key, $val) = each %{$conf}) {
-		if ($val->{hook}) {
-			weechat::unhook($val->{hook});
-		}
+		next if ! defined $val->{hook} || $val->{hook} eq '';
+		weechat::unhook($val->{hook});
 	}
 	$conf = &config();
 	return weechat::WEECHAT_RC_OK;

@@ -17,17 +17,19 @@
 #
 # Usage
 # /set plugins.var.perl.logrotate.server.#channel.timer 600
-#	Set log rotation timer 600 for the buffer
-#	named server.#channel. weechatlog file will
-#	be rotated for each 600 seconds.
+#	Set log rotation timer 600 for the buffer named
+#	server.#channel. weechatlog file will be rotated
+#	for each 600 seconds.
 #
 # /set plugins.var.perl.logrotate.server.#channel.format /home/hoge/.weechat/logs/server.#channel/%Y-%m-%d-%H:%M:%S
-#	Set logfile format for the buffer
-#	named server.#channel. weechatlog file will
-#	be renamed according to the format.
-#	Special calacters(%Y, %m, %d ...) are allowed
-#	to use, check the URLs below.
-#	http://search.cpan.org/~msergeant/Time-Piece/Piece.pm
+#	Set logfile format for the buffer named server.#channel.
+#	weechatlog file will be renamed according to the format.
+#	Special calacters(%Y, %m, %d ...) defined in the perl
+#	module Time::Piece are allowed to use, for the detail
+#	information of them, check the URLs[1,2] below.
+#
+#	[1] http://www.unix.com/man-page/FreeBSD/3/strftime/
+#	[2] http://search.cpan.org/~msergeant/Time-Piece/Piece.pm
 #
 
 use strict;

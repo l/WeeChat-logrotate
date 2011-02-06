@@ -33,6 +33,8 @@
 #
 # /unset plugins.var.perl.logrotate.server.#channel.timer
 # /unset plugins.var.perl.logrotate.server.#channel.format
+# /set plugins.var.perl.logrotate.server.#channel.timer 0
+# /set plugins.var.perl.logrotate.server.#channel.format null
 #	Remove a configuration. to make logrotate disable,
 #	you can remove either timer or format parameter.
 #
@@ -40,7 +42,7 @@
 use strict;
 use warnings;
 use Time::Piece;
-use Data::Dumper;
+#use Data::Dumper;
 use File::Basename;
 use File::Path;
 
@@ -69,14 +71,14 @@ sub option_get
 sub config
 {
 	my $conf = &option_get("plugins.var.perl.logrotate");
-	weechat::print("", Dumper $conf);
+#	weechat::print("", Dumper $conf);
 	while (my ($key, $val) = each %{$conf}) {
 		next if ! defined $val->{format} || $val->{format} eq '';
 		next if ! defined $val->{timer} || $val->{timer} == 0;
 		$val->{hook} = weechat::hook_timer(1000 * $val->{timer}, $val->{timer}, 0, "my_signal_day_changed", $key);
 	}
 
-	weechat::print("", Dumper $conf);
+#	weechat::print("", Dumper $conf);
 	return $conf;
 }
 

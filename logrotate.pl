@@ -111,7 +111,7 @@ sub my_signal_day_changed
 			my $t = localtime;
 			my $log_filename_new = $t->strftime($conf->{$name}->{format});
 			eval { mkpath(dirname($log_filename_new)); };
-#			weechat::print("", "ERROR:mkpath, $@") && next if $@;
+			weechat::print("", "ERROR:mkpath, $@") && next if $@;
 #			weechat::print("", $log_filename_new);
 			rename $log_filename, $log_filename_new;
 			weechat::print("", "$log_filename => $log_filename_new");

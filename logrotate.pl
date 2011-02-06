@@ -25,6 +25,9 @@
 #	Set logfile format for the buffer
 #	named server.#channel. weechatlog file will
 #	be renamed according to the format.
+#	Special calacters(%Y, %m, %d ...) are allowed
+#	to use, check the URLs below.
+#	http://search.cpan.org/~msergeant/Time-Piece/Piece.pm
 #
 
 use strict;

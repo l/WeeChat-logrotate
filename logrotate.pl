@@ -42,7 +42,7 @@
 use strict;
 use warnings;
 use Time::Piece;
-#use Data::Dumper;
+use Data::Dumper;
 use File::Basename;
 use File::Path;
 
@@ -71,14 +71,14 @@ sub option_get
 sub config
 {
 	my $conf = &option_get("plugins.var.perl.logrotate");
-#	weechat::print("", Dumper $conf);
+	weechat::print("", Dumper $conf);
 	while (my ($key, $val) = each %{$conf}) {
 		next if ! defined $val->{format} || $val->{format} eq '';
 		next if ! defined $val->{timer} || $val->{timer} == 0;
 		$val->{hook} = weechat::hook_timer(1000 * $val->{timer}, $val->{timer}, 0, "my_signal_day_changed", $key);
 	}
 
-#	weechat::print("", Dumper $conf);
+	weechat::print("", Dumper $conf);
 	return $conf;
 }
 
@@ -98,14 +98,14 @@ sub config_cb
 sub my_signal_day_changed
 {
 #	weechat::print("", "");
-#	weechat::print("", "test");
 	my $data = shift;
+#	weechat::print("", $data);
 	return weechat::WEECHAT_RC_OK if !defined $conf->{$data};
 
 	my $il = weechat::infolist_get('buffer', '', "*$data*");
 	while (weechat::infolist_next($il)) {
 		my $name = weechat::infolist_string($il, 'name');
-		next if $name ne $data;
+		next if lc $name ne lc $data;
 #		weechat::print("", $name);
 		my $pointer = weechat::infolist_pointer($il, 'pointer');
 		my $il1 = weechat::infolist_get('logger_buffer', '', '');
@@ -123,7 +123,7 @@ sub my_signal_day_changed
 			next if $log_level == 0;
 #			weechat::print("", $log_level);
 			my $t = localtime;
-			my $log_filename_new = $t->strftime($conf->{$name}->{format});
+			my $log_filename_new = $t->strftime($conf->{$data}->{format});
 			eval { mkpath(dirname($log_filename_new)); };
 			weechat::print("", "ERROR:mkpath, $@") && next if $@;
 #			weechat::print("", $log_filename_new);

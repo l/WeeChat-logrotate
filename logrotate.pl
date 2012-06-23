@@ -6,37 +6,45 @@
 # Name
 #	logrotate.pl - yet another log rotation for weechatlog
 #
-# Discripton
-#	logrotate is desined for rotation logfiles by using
-#	pure weechat environment. it allows to automatic
-#	rotate weechatlogs for any buffer with DIFFERRNT
-#	configuration.
-#	Prior to the consideration of using logrotate.pl,
-#	check "WeeChat User's Guid Section 4.7. Logger plugin"
-#	first. WeeChat provide us official logrotate manner.
+# Description
+#	logrotate is designed for rotation logfiles by using pure
+#	WeeChat environment. it allows to automatic rotate weechatlogs
+#	for any buffer with DIFFERRNT configuration.
+#
+#	Prior to the consideration of using logrotate.pl, check
+#	"WeeChat User's Guide Section 4.7. Logger plugin"
+#	first. WeeChat provide us quasi-logrotate manner officially
+#	[1]. for example,
+#
+#	/set logger.mask.irc.freenode.#weechat "$server.$channel/%Y-%m-%d-%H:%M:%S"
+#
+#	Note that it's change the path of log file not every one
+#	second but every one day even %S specifier used.
+#
+#	[1] http://www.weechat.org/files/doc/stable/weechat_user.en.html#logger_files_by_date
 #
 # Usage
 # /set plugins.var.perl.logrotate.server.#channel.timer 600
 #	Set log rotation timer 600 for the buffer named
-#	server.#channel. weechatlog file will be rotated
-#	for each 600 seconds.
+#	server.#channel. weechatlog file will be rotated for every 600
+#	seconds.
 #
 # /set plugins.var.perl.logrotate.server.#channel.format /home/hoge/.weechat/logs/server.#channel/%Y-%m-%d-%H:%M:%S
 #	Set logfile format for the buffer named server.#channel.
 #	weechatlog file will be renamed according to the format.
-#	Special calacters(%Y, %m, %d ...) defined in the perl
-#	module Time::Piece are allowed to use, for the detail
-#	information of them, check the URLs[1,2] below.
+#	Special calacters(%Y, %m, %d ...) defined in the Perl module
+#	Time::Piece are allowed to use, for the detail information of
+#	them, check the URLs[2,3] below.
 #
-#	[1] http://www.unix.com/man-page/FreeBSD/3/strftime/
-#	[2] http://search.cpan.org/~msergeant/Time-Piece/Piece.pm
+#	[2] http://www.unix.com/man-page/FreeBSD/3/strftime/
+#	[3] http://search.cpan.org/~msergeant/Time-Piece/Piece.pm
 #
 # /unset plugins.var.perl.logrotate.server.#channel.timer
 # /unset plugins.var.perl.logrotate.server.#channel.format
 # /set plugins.var.perl.logrotate.server.#channel.timer 0
 # /set plugins.var.perl.logrotate.server.#channel.format null
-#	Remove a configuration. to make logrotate disable,
-#	you can remove either timer or format parameter.
+#	Remove a configuration. to make logrotate disable, you can
+#	remove either timer or format parameter.
 #
 
 use strict;
